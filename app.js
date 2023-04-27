@@ -46,7 +46,7 @@ app.get("/LoggInn", (req, res) => {
     res.render("LoggInn.ejs", { title: "LoggInn", user: bruker });
 });
   
-app.post("/loggInn", async (req, res) => {
+app.post("/logginn", async (req, res) => {
     const { email, password } = req.body;
     console.log("loggInnBruker", email, password);
     // admin = 0; // Brukes for å sjekke om det er admin bruker
@@ -75,11 +75,26 @@ app.post("/loggInn", async (req, res) => {
     }
 });
 
+app.get("/admin", (req, res) => {
+    res.render("admin.ejs", { title: "Admin", user: bruker });
+});
+
 app.post("/nyprod", async (req, res) => {
     const { tittel, modell, merke, pris, artikkelnummer, dato } = req.body;
 
     try {
         const user = await Prod.create({ tittel, modell, merke, pris, artikkelnummer, dato });
+        res.render("admin.ejs", { title: "Admin", user: bruker })
+    }
+    catch (err) {
+        console.log(err.message);
+        res.render("admin.ejs", { title: "Admin", user: bruker })
+    }
+});
+
+app.post("/slettprod", async (req, res) => {
+    try {
+        const user = await Prod.deleteOne({ tittel });
         res.render("admin.ejs", { title: "Admin", user: bruker })
     }
     catch (err) {

@@ -25,11 +25,18 @@
         <input type="submit" name="reg" value="Registrer produkt">
     </form>
 
+    <form action="/slettprod" method="post">
+        <label for="tittel">Tittel:</label>
+        <input type="text" name="tittel" required/><br> <br>
+        <input type="submit" name="del" value="Slett produkt">
+
     <br> <br>
 
     <form action="/veileder" method="get">
         <input type="submit" name="veileder" id="veileder" value="Veileder">
     </form>
+
+
 
     <%- include('./partials/footer') %>
 
